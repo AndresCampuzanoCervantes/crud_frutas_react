@@ -1,5 +1,4 @@
 import React,{useEffect} from 'react'
-import {nanoid} from 'nanoid'
 import {firebase} from '../firebase'
 
 
@@ -17,8 +16,7 @@ const Formulario = () => {
                 const db = firebase.firestore()
                 const data = await db.collection('frutas').get()
                 const arrayData= data.docs.map(item => ({
-                    id:item.id, ...item.data()
-                }))
+                    id:item.id,...item.data()}))
                 //console.table(arrayData)
                 setListaFrutas(arrayData)
             } catch (error) {
@@ -51,12 +49,9 @@ const Formulario = () => {
                 nombreDescripcion: descripcion
             };
 
-            const data = await db.collection('frutas').add(nuevaFruta);
+            await db.collection('frutas').add(nuevaFruta);
 
-            setListaFrutas([
-                ... listaFrutas,
-                nuevaFruta
-            ])
+            setListaFrutas([...listaFrutas,nuevaFruta])
 
             e.target.reset()
             setFruta('')
